@@ -6,6 +6,10 @@ const cheerio = require('cheerio')
 const pretty = require("pretty");
 
 exports.handler = async (event, context) => {
+    // to hit the function callback visit https://uoescraperpoc.netlify.app/.netlify/functions/hello-world.js
+    // You can specify GET parameters in the URL ?url=*url*
+    // to access query parameters here use: event.queryStringParameters.url
+
     const eventBody = JSON.parse(event.body)
     // URL of the page we want to scrape
     const url = eventBody.url
@@ -14,19 +18,16 @@ exports.handler = async (event, context) => {
 
     try {
 
-
-        // Fetch HTML of the page we want to scrape
+        // Fetch HTML using Axios for the page we want to scrape
         const response = await axios.get(url);
-        // Load HTML we fetched in the previous line
+        // Load HTML we fetched into Cheerio
         const $ = await cheerio.load(response.data);
-        /* queryDOM */
+        // Filter HTML using the CSS selector specified 
         const html = $(selector)
 
         return {
             statusCode: 200,
             body: JSON.stringify({
-                url: url,
-                selector: selector,
                 html: html.html()
             })
         }

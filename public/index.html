@@ -12,18 +12,19 @@
   <h1>HTML & XML Scraping via Serverless Function</h1>
 
 
-    <label for="url">URL</label>
-    <input type="text" id="url" name="url">
-    https://www.websupport.vet.ed.ac.uk/profiles/web/profile.php?uun=tschwarz,tliuti,mframe1,v1emunro,amajor2,s1065357,lmeehan,rrae&url=http://www.ed.ac.uk/schools-departments/vet/our-staff/depts-list/diagnostic-imaging
+    <label for="url">Specify a URL you want to scrape</label>
+    <br/>
+    <input type="text" id="url" name="url" 
+    value="https://www.websupport.vet.ed.ac.uk/profiles/web/profile.php?uun=tschwarz,tliuti,mframe1,v1emunro,amajor2,s1065357,lmeehan,rrae&url=http://www.ed.ac.uk/schools-departments/vet/our-staff/depts-list/diagnostic-imaging">
+    <br/>
+    <label for="selector">Specify a CSS Selector to target the content to scrape</label>
+    <br/>
+    <input type="text" id="selector" name="selector" value="#secondaryNav">
+    <br/>
+    <button id="fetch-btn">Scrape</button>
 
-    <label for="selector">CSS Selector</label>
-    <input type="text" id="selector" name="selector">
-    #secondaryNav
 
-    <button id="fetch-btn">Fetch</button>
-
-
-  <p id="response-output">Response Placeholder</p>
+  <p id="response-output">HTML Response</p>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -38,7 +39,6 @@
           body: JSON.stringify({
             url: urlField.value,
             selector: selectorField.value,
-            html: ""
           })
         }).then(response => response.json()
         )
