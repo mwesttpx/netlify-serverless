@@ -12,26 +12,30 @@
   <h1>HTML & XML Scraping via Serverless Function</h1>
 
 
-    <label for="url">Specify a URL you want to scrape</label>
-    <br/>
-    <input type="text" id="url" name="url" 
+  <label for="url">Specify a URL you want to scrape</label>
+  <br />
+  <input type="text" id="url" name="url"
     value="https://www.websupport.vet.ed.ac.uk/profiles/web/profile.php?uun=tschwarz,tliuti,mframe1,v1emunro,amajor2,s1065357,lmeehan,rrae&url=http://www.ed.ac.uk/schools-departments/vet/our-staff/depts-list/diagnostic-imaging">
-    <br/>
-    <label for="selector">Specify a CSS Selector to target the content to scrape</label>
-    <br/>
-    <input type="text" id="selector" name="selector" value="#secondaryNav">
-    <br/>
-    <button id="fetch-btn">Scrape</button>
-
-
-  <p id="response-output">HTML Response</p>
+  <br />
+  <label for="selector">Specify a CSS Selector to target the content to scrape</label>
+  <br />
+  <input type="text" id="selector" name="selector" value="#secondaryNav">
+  <br />
+  <button id="fetch-btn">Scrape</button>
+  <br />
+  Response HTML
+  <div id="response-html"></div>
+  Response String
+  <div id="response-output"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       const fetchBtn = document.getElementById('fetch-btn')
       const urlField = document.getElementById('url')
       const selectorField = document.getElementById('selector')
+      const responseHTML = document.getElementById('response-html')
       const responseText = document.getElementById('response-output')
+
 
       fetchBtn.addEventListener('click', async () => {
         const response = await fetch('/.netlify/functions/hello-world', {
@@ -42,8 +46,11 @@
           })
         }).then(response => response.json()
         )
-        responseText.innerText = JSON.stringify(response)
-        
+        responseHTML.innerHTML = response.html
+        responseText.innerText = JSON.stringify(response.html)
+
+        console.log(response);
+
       })
     })
   </script>
