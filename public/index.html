@@ -1,27 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HTML & XML Scraping via Serverless Function</title>
-  </head>
-  <body>
-    <h1>HTML & XML Scraping via Serverless Function</h1>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML & XML Scraping via Serverless Function</title>
+</head>
+
+<body>
+  <h1>HTML & XML Scraping via Serverless Function</h1>
+
+
+    <label for="url">URL</label>
+    <input type="text" id="url" name="url">
+    https://www.websupport.vet.ed.ac.uk/profiles/web/profile.php?uun=tschwarz,tliuti,mframe1,v1emunro,amajor2,s1065357,lmeehan,rrae&url=http://www.ed.ac.uk/schools-departments/vet/our-staff/depts-list/diagnostic-imaging
+
+    <label for="selector">CSS Selector</label>
+    <input type="text" id="selector" name="selector">
+    #secondaryNav
+
     <button id="fetch-btn">Fetch</button>
-    <p id="response-output">Response Placeholder</p>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const fetchBtn = document.getElementById('fetch-btn')
-        const responseText = document.getElementById('response-output')
 
-        fetchBtn.addEventListener('click', async () => {
-          const response = await fetch('/.netlify/functions/hello-world').then(response => response.json()
-          )
-          responseText.innerText = JSON.stringify(response)
-        })
+  <p id="response-output">Response Placeholder</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const fetchBtn = document.getElementById('fetch-btn')
+      const urlField = document.getElementById('url')
+      const selectorField = document.getElementById('selector')
+      const responseText = document.getElementById('response-output')
+
+      fetchBtn.addEventListener('click', async () => {
+        const response = await fetch('/.netlify/functions/hello-world', {
+          method: 'POST',
+          body: JSON.stringify({
+            url: urlField.value,
+            selector: selectorField.value,
+            html: ""
+          })
+        }).then(response => response.json()
+        )
+        responseText.innerText = JSON.stringify(response)
+        
       })
-    </script>
-  </body>
+    })
+  </script>
+</body>
+
 </html>
