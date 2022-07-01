@@ -23,10 +23,10 @@
   <br />
   <button id="fetch-btn">Scrape</button>
   <br />
-  Response HTML
+  Response HTML etc
   <div id="response-html"></div>
   Response String
-  <div id="response-output"></div>
+  <div id="response-string"></div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -34,7 +34,7 @@
       const urlField = document.getElementById('url')
       const selectorField = document.getElementById('selector')
       const responseHTML = document.getElementById('response-html')
-      const responseText = document.getElementById('response-output')
+      const responseString = document.getElementById('response-string')
 
 
       fetchBtn.addEventListener('click', async () => {
@@ -47,7 +47,7 @@
         }).then(response => response.json()
         )
         responseHTML.innerHTML = response.html
-        responseText.innerText = JSON.stringify(response.html)
+        responseString.innerText = JSON.stringify(response.html)
 
         console.log(response);
 
